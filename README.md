@@ -6,14 +6,13 @@ The Hot Content Reload lets you reload page props of your Next.js pages without 
 
 To install the listener you need to import and call the `startHotContentReloadSocketServer` method. The returned object will include the `notifyPropsChanged` callback which you should call whenever your page props are changed.
 
-Depending on where your data comes from, you can setup a listener for your data and when it changes call the `notifyPropsChanged` method.  For example, if you are working with Contentful, you may use the `@stackbit/contentful-listener` package to notify you of any updates happening inside Contentful.
-
+Depending on where your data comes from, you can setup a listener for your data and when it changes call the `notifyPropsChanged` method. For example, if you are working with Contentful, you may use the `@stackbit/contentful-listener` package to notify you of any updates happening inside Contentful.
 
 ```javascript
 const { ContentfulListener } = require('@stackbit/contentful-listener');
 const { startHotContentReloadSocketServer } = require('@stackbit/nextjs-hot-content-reload');
 
-const { notifyPropsChanged } = startHotContentReloadSocketServer();
+const { notifyPropsChanged } = startHotContentReloadSocketServer(options);
 
 const contentfulListener = new ContentfulListener({
     spaceId: process.env.CONTENTFUL_SPACE_ID,
@@ -26,4 +25,22 @@ const contentfulListener = new ContentfulListener({
     }
 });
 contentfulListener.start();
+```
+
+Next step, is to wrap your page components with `withHotContentReload` component to allow hot-content-reload in these pages:
+
+```javascript
+import { withHotContentReload } from '@stackbit/nextjs-hot-content-reload';
+
+export default function Page() {
+    return (
+        <main>...</main>
+    );
+}
+
+export default withHotContentReload(options)(Page);
+
+export function getServerSideProps() {
+    // ...
+}
 ```
