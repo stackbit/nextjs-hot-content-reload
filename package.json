@@ -1,0 +1,47 @@
+{
+  "name": "@stackbit/nextjs-hot-content-reload",
+  "version": "0.1.0",
+  "description": "Hot content reload for Next.js dev server",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"no tests...\" && exit 0",
+    "build": "rm -rf ./dist && tsc",
+    "prettier": "prettier --write src",
+    "prepack": "npm test && npm run build",
+    "version-minor": "npm version minor -m \"bumped version to v%s\"",
+    "version-patch": "npm version patch -m \"bumped version to v%s\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stackbit/nextjs-hot-content-reload.git"
+  },
+  "keywords": [
+    "stackbit",
+    "nextjs",
+    "hmr"
+  ],
+  "author": "Stackbit Inc.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stackbit/nextjs-hot-content-reload/issues"
+  },
+  "homepage": "https://github.com/stackbit/nextjs-hot-content-reload#readme",
+  "dependencies": {
+    "socket.io": "^4.4.0",
+    "socket.io-client": "^4.4.0"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.37",
+    "@typescript-eslint/eslint-plugin": "^5.7.0",
+    "@typescript-eslint/parser": "^5.7.0",
+    "eslint": "^8.4.1",
+    "eslint-config-prettier": "^8.3.0",
+    "next": "^12.0.7",
+    "prettier": "^2.5.1",
+    "typescript": "^4.5.4"
+  },
+  "peerDependencies": {
+    "react": ">=16",
+    "next": ">=10"
+  }
+}
