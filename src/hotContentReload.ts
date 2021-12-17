@@ -4,26 +4,23 @@ import ioClient from 'socket.io-client';
 import { WithRouterProps } from 'next/dist/client/with-router';
 import { HOT_RELOAD_PORT, HOT_RELOAD_NAMESPACE, HOT_RELOAD_EVENT_NAME } from './consts';
 
-export interface WithHotContentReloadOptions {
+export interface HotContentReloadOptions {
+    disable?: boolean;
     port?: number;
     namespace?: string;
     eventName?: string;
 }
 
-export interface WithHotContentReloadOptionsProps {
-    disableHotContentReload?: boolean;
-}
-
-// Please do not change the default values if you plan to run your site's preview in Stackbit
-export function withHotContentReload({
+export function hotContentReload({
+    disable = false,
     port = HOT_RELOAD_PORT,
     namespace = HOT_RELOAD_NAMESPACE,
     eventName = HOT_RELOAD_EVENT_NAME
-}: WithHotContentReloadOptions = {}) {
-    return function <T extends WithHotContentReloadOptionsProps>(WrappedComponent: ComponentType<T>) {
+}: HotContentReloadOptions = {}) {
+    return function withHotContentReload<T>(WrappedComponent: ComponentType<T>) {
         const withSocket: FunctionComponent<T & WithRouterProps> = (props) => {
             useEffect(() => {
-                if (props.disableHotContentReload) {
+                if (disable) {
                     return;
                 }
 

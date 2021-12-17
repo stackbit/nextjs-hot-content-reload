@@ -19,5 +19,5 @@
         "max-len": ["error", { "code": 160 }],
         "object-curly-spacing": ["error", "always"]
     },
-    "ignorePatterns": ["withHotContentReload.js"]
+    "ignorePatterns": ["hotContentReload.js"]
 }

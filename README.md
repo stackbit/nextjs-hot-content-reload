@@ -27,10 +27,10 @@ const contentfulListener = new ContentfulListener({
 contentfulListener.start();
 ```
 
-Next step, is to wrap your page components with `withHotContentReload` component to allow hot-content-reload in these pages:
+Next step, is to wrap your page components with `withHotContentReload` high-order-component to allow hot-content-reload in these pages:
 
 ```javascript
-import { withHotContentReload } from '@stackbit/nextjs-hot-content-reload';
+import { hotContentReload } from '@stackbit/nextjs-hot-content-reload';
 
 export default function Page() {
     return (
@@ -38,7 +38,9 @@ export default function Page() {
     );
 }
 
-export default withHotContentReload(options)(Page);
+const withHotContentReload = hotContentReload(options);
+
+export default withHotContentReload(Page);
 
 export function getServerSideProps() {
     // ...
