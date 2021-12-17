@@ -1,6 +1,4 @@
 import http from 'http';
-import path from 'path';
-import { readFile, writeFile } from 'fs/promises';
 import { Server } from 'socket.io';
 import { HOT_RELOAD_PORT, HOT_RELOAD_NAMESPACE, HOT_RELOAD_EVENT_NAME } from './consts';
 
@@ -48,19 +46,4 @@ export function startHotContentReloadSocketServer({
             liveUpdatesIO.emit(eventName);
         }
     };
-}
-
-async function updateContentVersionFile() {
-    const filePath = path.join(__dirname, 'content-version.js');
-
-    let contentVersion = 0;
-    try {
-        const contentVersionData = await readFile(filePath, 'utf8');
-        const contentVersionMatch = contentVersionData.toString().match(/:\s*(\d+)/);
-        contentVersion = (contentVersionMatch && parseInt(contentVersionMatch[1]!)) || 0;
-    } catch (e) {
-        // pass
-    }
-
-    await writeFile(filePath, `module.exports = {\n  contentVersion: ${contentVersion + 1},\n}\n`);
 }
