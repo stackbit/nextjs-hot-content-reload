@@ -16,8 +16,7 @@ export function startHotContentReloadSocketServer({
 }: HotContentReloadSocketServerOptions = {}): { notifyPropsChanged: () => void } {
     console.log(`[HotContentReloadSocket] create a websocket on port ${port} with namespace ${namespace}`);
     const httpServer = http.createServer();
-    const io = new Server();
-    io.attach(httpServer, {
+    const io = new Server(httpServer, {
         allowEIO3: true,
         cors: {
             origin: true
