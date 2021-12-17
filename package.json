@@ -1,6 +1,6 @@
 {
   "name": "@stackbit/nextjs-hot-content-reload",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Hot content reload for Next.js dev server",
   "main": "dist/index.js",
   "scripts": {
