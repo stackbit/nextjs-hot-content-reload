@@ -1,4 +1,4 @@
-import React, { ComponentType, FunctionComponent, useEffect } from 'react';
+import { createElement, ComponentType, FunctionComponent, useEffect } from 'react';
 import { withRouter } from 'next/router';
 import ioClient from 'socket.io-client';
 import { WithRouterProps } from 'next/dist/client/with-router';
@@ -49,7 +49,7 @@ export function hotContentReload({
                 };
             }, []);
 
-            return React.createElement(WrappedComponent, props, null);
+            return createElement(WrappedComponent, props, null);
         };
 
         function getDisplayName(WrappedComponent: ComponentType) {
