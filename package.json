@@ -4,9 +4,10 @@
   "description": "Hot content reload for Next.js dev server",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"no tests...\" && exit 0",
+    "test": "eslint src && prettier --check src",
     "build": "rm -rf ./dist && tsc",
     "prettier": "prettier --write src",
+    "eslint": "eslint src",
     "prepack": "npm test && npm run build",
     "version-minor": "npm version minor -m \"bumped version to v%s\"",
     "version-patch": "npm version patch -m \"bumped version to v%s\""

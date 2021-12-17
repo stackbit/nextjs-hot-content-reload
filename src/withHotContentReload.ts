@@ -1,4 +1,4 @@
-import React, { Component, ComponentType, FunctionComponent, useEffect } from 'react';
+import React, { ComponentType, FunctionComponent, useEffect } from 'react';
 import { withRouter } from 'next/router';
 import ioClient from 'socket.io-client';
 import { WithRouterProps } from 'next/dist/client/with-router';
@@ -15,7 +15,7 @@ export interface WithHotContentReloadOptionsProps {
 }
 
 // Please do not change the default values if you plan to run your site's preview in Stackbit
-export function withHotContentReload<T>({
+export function withHotContentReload({
     port = HOT_RELOAD_PORT,
     namespace = HOT_RELOAD_NAMESPACE,
     eventName = HOT_RELOAD_EVENT_NAME
