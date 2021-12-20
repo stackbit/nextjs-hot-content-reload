@@ -24,10 +24,13 @@ export function hotContentReload({
                     return;
                 }
 
-                // If the port is null, use the same port the page was loaded from.
+                // If the port is not defined, use the same port the page was loaded from.
                 // This requires attaching socket.io to the same server that runs the site
-                let portStr = String(port) || location.port;
+                let portStr = process.env.NEXT_PUBLIC_HOT_RELOAD_CLIENT_PORT ?? String(port) ?? location.port;
                 portStr = portStr ? ':' + portStr : '';
+
+                namespace = process.env.NEXT_PUBLIC_HOT_RELOAD_PATH ?? namespace;
+                eventName = process.env.NEXT_PUBLIC_HOT_RELOAD_EVENT_NAME ?? eventName;
 
                 const socket = ioClient(`${location.protocol}//${location.hostname + portStr}${namespace}`);
                 socket.on(eventName, () => {

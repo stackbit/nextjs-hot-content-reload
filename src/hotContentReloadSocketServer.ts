@@ -14,6 +14,12 @@ export function startHotContentReloadSocketServer({
     namespace = HOT_RELOAD_NAMESPACE,
     eventName = HOT_RELOAD_EVENT_NAME
 }: HotContentReloadSocketServerOptions = {}): { notifyPropsChanged: () => void } {
+    if (process.env.NEXT_PUBLIC_HOT_RELOAD_SERVER_PORT) {
+        port = Number(process.env.NEXT_PUBLIC_HOT_RELOAD_SERVER_PORT);
+    }
+    namespace = process.env.NEXT_PUBLIC_HOT_RELOAD_PATH ?? namespace;
+    eventName = process.env.NEXT_PUBLIC_HOT_RELOAD_EVENT_NAME ?? eventName;
+
     console.log(`[HotContentReloadSocket] create a websocket on port ${port} with namespace ${namespace}`);
     const httpServer = http.createServer();
     const io = new Server(httpServer, {
