@@ -44,6 +44,7 @@ export default function Page(props) {
 // You can also provide optional options object with custom "port", "namespace" and "eventName"
 // or leave it empty to use default values that work with Stackbit preview.
 const withHotContentReload = hotContentReload({
+    disable: NODE_ENV !== 'development'
     // port: '...',
     // namespace: '...',
     // eventName: '...'
