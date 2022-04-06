@@ -60,3 +60,6 @@ out
 
 # Compiled files
 dist
+
+# Example Next.js site
+example

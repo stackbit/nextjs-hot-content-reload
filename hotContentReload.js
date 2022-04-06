@@ -1,2 +1,3 @@
-const { hotContentReload } = require('./dist/hotContentReload');
+const { hotContentReload, withHotContentReload } = require('./dist/hotContentReload');
 exports.hotContentReload = hotContentReload;
+exports.withHotContentReload = withHotContentReload;

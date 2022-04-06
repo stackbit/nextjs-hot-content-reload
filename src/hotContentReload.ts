@@ -4,21 +4,23 @@ import ioClient from 'socket.io-client';
 import { HOT_RELOAD_PORT, HOT_RELOAD_NAMESPACE, HOT_RELOAD_EVENT_NAME } from './consts';
 
 export interface HotContentReloadOptions {
-    disable?: boolean;
+    enabled?: boolean;
     port?: number;
     namespace?: string;
     eventName?: string;
 }
 
+const isDev = process.env.NODE_ENV === 'development';
+
 export function hotContentReload({
-    disable = false,
+    enabled = isDev,
     port = HOT_RELOAD_PORT,
     namespace = HOT_RELOAD_NAMESPACE,
     eventName = HOT_RELOAD_EVENT_NAME
 }: HotContentReloadOptions = {}) {
     return function withHotContentReload<T>(WrappedComponent: ComponentType<T>) {
         const withSocket: FunctionComponent<T> = (props) => {
-            if (disable) {
+            if (!enabled) {
                 return createElement(WrappedComponent, props, null);
             }
 
@@ -42,7 +44,7 @@ export function hotContentReload({
             useEffect(() => {
                 // If the port is not defined, use the same port the page was loaded from.
                 // This requires attaching socket.io to the same server that runs the site
-                let portStr = process.env.NEXT_PUBLIC_HOT_RELOAD_CLIENT_PORT ?? String(port) ?? location.port;
+                let portStr = process.env.NEXT_PUBLIC_HOT_RELOAD_CLIENT_PORT ?? (port !== undefined ? String(port) : location.port);
                 portStr = portStr ? ':' + portStr : '';
                 namespace = process.env.NEXT_PUBLIC_HOT_RELOAD_PATH ?? namespace;
                 eventName = process.env.NEXT_PUBLIC_HOT_RELOAD_EVENT_NAME ?? eventName;
@@ -73,3 +75,6 @@ export function hotContentReload({
         return withSocket;
     };
 }
+
+export type WithHotContentReload = <T>(WrappedComponent: ComponentType<T>) => FunctionComponent<T>;
+export const withHotContentReload: WithHotContentReload = hotContentReload();

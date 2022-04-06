@@ -1,1 +1,1 @@
-export { hotContentReload } from './dist/hotContentReload';
+export * from './dist/hotContentReload';
